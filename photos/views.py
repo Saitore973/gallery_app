@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.http import HttpResponse,Http404
 import datetime as dt
 
@@ -17,7 +17,7 @@ def photos_of_day(request):
             </body>
         </html>
             '''
-    return HttpResponse(html)
+    return render(request, 'all-photos/current-photos.html', {"date": date,})
 
 def convert_dates(dates):
 
@@ -38,6 +38,10 @@ def past_days_photos(request,past_date):
     except ValueError:
         # Raise 404 error when ValueError is thrown
         raise Http404()
+        assert False
+
+    if date == dt.date.today():
+        return redirect(photos_of_day)
         # Converts data from the string Url
     date = dt.datetime.strptime(past_date,'%Y-%m-%d').date()
 
@@ -49,4 +53,4 @@ def past_days_photos(request,past_date):
             </body>
         </html>
             '''
-    return HttpResponse(html)
+    return render(request, 'all-photos/past-photos.html', {"date": date})
