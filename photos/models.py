@@ -39,3 +39,8 @@ class Image(models.Model):
     def days_photos(cls,date):
         photos = cls.objects.filter(upload_date__date = date)
         return photos
+
+    @classmethod
+    def search_by_image_name(cls,search_term):
+        photos = cls.objects.filter(image_name__icontains=search_term)
+        return photos
