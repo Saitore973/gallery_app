@@ -22,3 +22,9 @@ class Category(models.Model):
 
     def __str__(self):
         return self.name
+
+class Image(models.Model):
+    image_name = models.CharField(max_length =30)
+    post = models.TextField()
+    photo_credits = models.CharField(max_length =30)
+    location = models.ForeignKey(Location, on_delete=models.CASCADE)
