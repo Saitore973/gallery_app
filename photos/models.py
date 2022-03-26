@@ -28,6 +28,7 @@ class Image(models.Model):
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
     category=models.ManyToManyField(Category)
     upload_date = models.DateTimeField(auto_now_add=True, null=True)
+    image = models.ImageField(upload_to = 'images/', null=True)
 
     @classmethod
     def todays_photos(cls):
