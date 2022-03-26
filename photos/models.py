@@ -4,13 +4,10 @@ from django.db import models
 class Location(models.Model):
     location_name = models.CharField(max_length=30)
     location_country = models.CharField(max_length=30)
+    location_contact = models.CharField(max_length = 10,blank =True)
 
     def __str__(self):
-        try:
-            location = Location.objects.get(email = 'example@gmail.com')
-            print('Editor found')
-        except DoesNotExist:
-            print('Editor was not found')
+        
 
             return self.location_name
 
@@ -25,7 +22,7 @@ class Category(models.Model):
 
 class Image(models.Model):
     image_name = models.CharField(max_length =30)
-    post = models.TextField()
+    Details = models.TextField()
     photo_credits = models.CharField(max_length =30)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
     category=models.ManyToManyField(Category)
