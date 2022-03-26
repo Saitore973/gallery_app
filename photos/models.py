@@ -28,3 +28,4 @@ class Image(models.Model):
     post = models.TextField()
     photo_credits = models.CharField(max_length =30)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
+    category=models.ManyToManyField(Category)
