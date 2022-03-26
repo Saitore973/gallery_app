@@ -29,3 +29,4 @@ class Image(models.Model):
     photo_credits = models.CharField(max_length =30)
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
     category=models.ManyToManyField(Category)
+    upload_date = models.DateTimeField(auto_now_add=True, null=True)
