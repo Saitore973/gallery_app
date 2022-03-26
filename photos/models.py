@@ -1,4 +1,5 @@
 from django.db import models
+import datetime as dt
 
 # Create your models here.
 class Location(models.Model):
@@ -27,3 +28,14 @@ class Image(models.Model):
     location = models.ForeignKey(Location, on_delete=models.CASCADE)
     category=models.ManyToManyField(Category)
     upload_date = models.DateTimeField(auto_now_add=True, null=True)
+
+    @classmethod
+    def todays_photos(cls):
+        today = dt.date.today()
+        photos = cls.objects.filter(upload_date__date = today)
+        return photos
+
+    @classmethod
+    def days_photos(cls,date):
+        photos = cls.objects.filter(upload_date__date = date)
+        return photos
