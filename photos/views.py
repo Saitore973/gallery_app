@@ -1,6 +1,7 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse,Http404
 import datetime as dt
+from . models import Image
 
 # Create your views here.
 def welcome(request):
@@ -9,15 +10,9 @@ def welcome(request):
 def photos_of_day(request):
     date = dt.date.today()
      # FUNCTION TO CONVERT DATE OBJECT TO FIND EXACT DAY
-    day = convert_dates(date)
-    html = f'''
-        <html>
-            <body>
-                <h1>Photos uploaded on  {day} {date.day}-{date.month}-{date.year}</h1>
-            </body>
-        </html>
-            '''
-    return render(request, 'all-photos/current-photos.html', {"date": date,})
+    
+    photos = Image.todays_photos()
+    return render(request, 'all-photos/current-photos.html', {"date": date, "photos":photos})
 
 def convert_dates(dates):
 
@@ -42,15 +37,16 @@ def past_days_photos(request,past_date):
 
     if date == dt.date.today():
         return redirect(photos_of_day)
-        # Converts data from the string Url
-    date = dt.datetime.strptime(past_date,'%Y-%m-%d').date()
+    #     # Converts data from the string Url
+    # date = dt.datetime.strptime(past_date,'%Y-%m-%d').date()
 
-    day = convert_dates(date)
-    html = f'''
-        <html>
-            <body>
-                <h1>Uploads for {day} {date.day}-{date.month}-{date.year}</h1>
-            </body>
-        </html>
-            '''
-    return render(request, 'all-photos/past-photos.html', {"date": date})
+    # day = convert_dates(date)
+    # html = f'''
+    #     <html>
+    #         <body>
+    #             <h1>Uploads for {day} {date.day}-{date.month}-{date.year}</h1>
+    #         </body>
+    #     </html>
+    #         '''
+    photos = Image.days_photos(date)
+    return render(request, 'all-photos/past-photos.html', {"date": date, "photos":photos})
