@@ -3,7 +3,7 @@ import datetime as dt
 
 # Create your models here.
 class Location(models.Model):
-    location_name = models.CharField(max_length=30)
+    name = models.CharField(max_length=30)
     location_country = models.CharField(max_length=30)
     location_contact = models.CharField(max_length = 10,blank =True)
 
@@ -13,7 +13,7 @@ class Location(models.Model):
             return self.location_name
 
     class Meta:
-            ordering = ['location_name']
+            ordering = ['name']
 
 class Category(models.Model):
     name = models.CharField(max_length =30)
@@ -44,4 +44,9 @@ class Image(models.Model):
     @classmethod
     def search_by_category(cls, category):
         images = cls.objects.filter(category__name__icontains=category)
+        return images
+
+    @classmethod
+    def filter_by_location(cls, location):
+        images = cls.objects.filter(location__name__icontains=location)
         return images
