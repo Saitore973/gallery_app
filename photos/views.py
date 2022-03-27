@@ -7,49 +7,49 @@ from . models import Image
 def welcome(request):
     return render(request, 'index.html')
 
-def photos_of_day(request):
-    date = dt.date.today()
+def photos(request):
+    
      # FUNCTION TO CONVERT DATE OBJECT TO FIND EXACT DAY
     
-    photos = Image.todays_photos()
-    return render(request, 'all-photos/current-photos.html', {"date": date, "photos":photos})
+    photos = Image.objects.all()
+    return render(request, 'all-photos/current-photos.html', { "photos":photos})
 
-def convert_dates(dates):
+# def convert_dates(dates):
 
-    # Function that gets the weekday number for the date.
-    day_number = dt.date.weekday(dates)
+#     # Function that gets the weekday number for the date.
+#     day_number = dt.date.weekday(dates)
 
-    days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday',"Sunday"]
+#     days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday',"Sunday"]
 
-    # Returning the actual day of the week
-    day = days[day_number]
-    return day
+#     # Returning the actual day of the week
+#     day = days[day_number]
+#     return day
 
-def past_days_photos(request,past_date):
-    try:
-        # Converts data from the string Url
-        date = dt.datetime.strptime(past_date,'%Y-%m-%d').date()
+# def past_days_photos(request,past_date):
+#     try:
+#         # Converts data from the string Url
+#         date = dt.datetime.strptime(past_date,'%Y-%m-%d').date()
 
-    except ValueError:
-        # Raise 404 error when ValueError is thrown
-        raise Http404()
-        assert False
+#     except ValueError:
+#         # Raise 404 error when ValueError is thrown
+#         raise Http404()
+#         assert False
 
-    if date == dt.date.today():
-        return redirect(photos_of_day)
-    #     # Converts data from the string Url
-    # date = dt.datetime.strptime(past_date,'%Y-%m-%d').date()
+#     if date == dt.date.today():
+#         return redirect(photos_of_day)
+#     #     # Converts data from the string Url
+#     # date = dt.datetime.strptime(past_date,'%Y-%m-%d').date()
 
-    # day = convert_dates(date)
-    # html = f'''
-    #     <html>
-    #         <body>
-    #             <h1>Uploads for {day} {date.day}-{date.month}-{date.year}</h1>
-    #         </body>
-    #     </html>
-    #         '''
-    photos = Image.days_photos(date)
-    return render(request, 'all-photos/past-photos.html', {"date": date, "photos":photos})
+#     # day = convert_dates(date)
+#     # html = f'''
+#     #     <html>
+#     #         <body>
+#     #             <h1>Uploads for {day} {date.day}-{date.month}-{date.year}</h1>
+#     #         </body>
+#     #     </html>
+#     #         '''
+#     photos = Image.days_photos(date)
+#     return render(request, 'all-photos/past-photos.html', {"date": date, "photos":photos})
 
 def search_results(request):
 

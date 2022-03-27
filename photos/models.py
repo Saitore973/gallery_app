@@ -8,7 +8,7 @@ class Location(models.Model):
     location_contact = models.CharField(max_length = 10,blank =True)
 
     def __str__(self):
-        return self.location_name
+        return self.name
 
     def save_location(self):
             self.save()
@@ -41,16 +41,16 @@ class Image(models.Model):
     upload_date = models.DateTimeField(auto_now_add=True, null=True)
     image = models.ImageField(upload_to = 'images/', null=True)
 
-    @classmethod
-    def todays_photos(cls):
-        today = dt.date.today()
-        photos = cls.objects.filter(upload_date__date = today)
-        return photos
+    # @classmethod
+    # def todays_photos(cls):
+    #     today = dt.date.today()
+    #     photos = cls.objects.filter(upload_date__date = today)
+    #     return photos
 
-    @classmethod
-    def days_photos(cls,date):
-        photos = cls.objects.filter(upload_date__date = date)
-        return photos
+    # @classmethod
+    # def days_photos(cls,date):
+    #     photos = cls.objects.filter(upload_date__date = date)
+    #     return photos
 
     @classmethod
     def search_by_category(cls, category):
@@ -72,7 +72,7 @@ class Image(models.Model):
         return image
 
     def __str__(self):
-        return self.name
+        return self.image_name
 
     def save_image(self):
         self.save()
@@ -80,5 +80,4 @@ class Image(models.Model):
     def delete_image(self):
         self.delete()
 
-    class Meta:
-        ordering = ['date']
+    
